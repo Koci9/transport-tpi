@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-solicitud:5432/solicitud_db
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+keycloak:
+  issuer-uri: http://keycloak:8080/realms/transport-tpi
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.issuer-uri}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers

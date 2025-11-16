@@ -1,0 +1,11 @@
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\controllers\SolicitudController.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\dto\CrearSolicitudRequest.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\dto\SolicitudResponse.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\entities\Cliente.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\entities\Contenedor.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\entities\Solicitud.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\repositories\ClienteRepository.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\repositories\ContenedorRepository.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\repositories\SolicitudRepository.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\services\SolicitudService.java
+C:\Users\usuario\Desktop\UTN\Backend de Aplicaciones\transport-tpi\solicitud-service\src\main\java\utnfrc\isi\back\tpi\solicliente\SoliclienteApplication.java

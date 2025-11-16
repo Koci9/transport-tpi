@@ -1,0 +1,8 @@
+utnfrc\isi\back\tpi\common\dto\ClienteDto.class
+utnfrc\isi\back\tpi\common\exception\ApiException.class
+utnfrc\isi\back\tpi\common\dto\ErrorResponse.class
+utnfrc\isi\back\tpi\common\dto\ContenedorDto.class
+utnfrc\isi\back\tpi\common\dto\CrearSolicitudDto.class
+utnfrc\isi\back\tpi\common\exception\GlobalExceptionHandler.class
+utnfrc\isi\back\tpi\common\util\DateTimeConfig.class
+utnfrc\isi\back\tpi\common\dto\SolicitudDto.class

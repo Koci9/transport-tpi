@@ -1,0 +1,8 @@
+utnfrc\isi\back\tpi\rutatramo\services\TramoService.class
+utnfrc\isi\back\tpi\rutatramo\entities\Tramo.class
+utnfrc\isi\back\tpi\rutatramo\maps\GoogleMapsClient.class
+utnfrc\isi\back\tpi\rutatramo\entities\Ruta.class
+utnfrc\isi\back\tpi\rutatramo\RutatramoApplication.class
+utnfrc\isi\back\tpi\rutatramo\controllers\TramoController.class
+utnfrc\isi\back\tpi\rutatramo\services\RutaService.class
+utnfrc\isi\back\tpi\rutatramo\controllers\RutaController.class

@@ -1,0 +1,11 @@
+utnfrc\isi\back\tpi\solicliente\dto\CrearSolicitudRequest.class
+utnfrc\isi\back\tpi\solicliente\controllers\SolicitudController.class
+utnfrc\isi\back\tpi\solicliente\repositories\ClienteRepository.class
+utnfrc\isi\back\tpi\solicliente\SoliclienteApplication.class
+utnfrc\isi\back\tpi\solicliente\entities\Cliente.class
+utnfrc\isi\back\tpi\solicliente\dto\SolicitudResponse.class
+utnfrc\isi\back\tpi\solicliente\entities\Contenedor.class
+utnfrc\isi\back\tpi\solicliente\services\SolicitudService.class
+utnfrc\isi\back\tpi\solicliente\repositories\SolicitudRepository.class
+utnfrc\isi\back\tpi\solicliente\repositories\ContenedorRepository.class
+utnfrc\isi\back\tpi\solicliente\entities\Solicitud.class

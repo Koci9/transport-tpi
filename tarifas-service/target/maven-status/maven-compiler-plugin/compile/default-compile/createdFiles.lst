@@ -1,0 +1,9 @@
+utnfrc\isi\back\tpi\tarifas\dto\ValidacionCamionRequest.class
+utnfrc\isi\back\tpi\tarifas\services\TarifasService.class
+utnfrc\isi\back\tpi\tarifas\entities\Camion.class
+utnfrc\isi\back\tpi\tarifas\dto\CosteoTramoResponse.class
+utnfrc\isi\back\tpi\tarifas\TarifasApplication.class
+utnfrc\isi\back\tpi\tarifas\repositories\TarifaRepository.class
+utnfrc\isi\back\tpi\tarifas\controllers\TarifasController.class
+utnfrc\isi\back\tpi\tarifas\repositories\CamionRepository.class
+utnfrc\isi\back\tpi\tarifas\entities\Tarifa.class

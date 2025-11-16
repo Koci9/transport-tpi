@@ -1,0 +1,31 @@
+server:
+port: 8083
+
+spring:
+datasource:
+url: jdbc:postgresql://db:5432/transportdb
+username: postgres
+password: postgres
+jpa:
+hibernate:
+ddl-auto: update
+properties:
+hibernate:
+format_sql: true
+
+spring:
+security:
+oauth2:
+resourceserver:
+jwt:
+issuer-uri: ${KEYCLOAK_ISSUER:http://keycloak:8080/realms/transport-tpi}
+
+management:
+endpoints:
+web:
+exposure:
+include: health,info
+
+logging:
+level:
+root: INFO

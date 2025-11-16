@@ -1,0 +1,40 @@
+server:
+port: 8080
+
+spring:
+security:
+oauth2:
+resourceserver:
+jwt:
+issuer-uri: ${KEYCLOAK_ISSUER:http://keycloak:8080/realms/transport-tpi}
+
+spring:
+cloud:
+gateway:
+default-filters:
+- name: RequestHeaderToRequestUri
+routes:
+- id: solicitud-service
+uri: http://solicitud-service:8081
+predicates:
+- Path=/api/solicitudes/**
+filters:
+- StripPrefix=1
+- id: ruta-service
+uri: http://ruta-service:8082
+predicates:
+- Path=/api/tramos/**, /api/rutas/**
+filters:
+- StripPrefix=1
+- id: tarifas-service
+uri: http://tarifas-service:8083
+predicates:
+- Path=/api/tarifas/**, /api/camiones/**
+filters:
+- StripPrefix=1
+
+management:
+endpoints:
+web:
+exposure:
+include: health,info

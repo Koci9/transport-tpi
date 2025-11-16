@@ -1,4 +1,4 @@
-package ar.edu.tpi.common.dto;
+package utnfrc.isi.back.tpi.common.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>utnfrc.isi.back.tpi</groupId>
 	<artifactId>common</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>common</name>
 	<description>Proyecto Spring Boot del TPI de Backend de Aplicaciones</description>
 	<url/>

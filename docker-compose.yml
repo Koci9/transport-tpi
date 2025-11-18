@@ -1,37 +1,38 @@
 version: "3.8"
 
-# Docker Compose para Transport-TPI
-# Levanta: Keycloak (realm import), Postgres, Gateway, Solicitud, Ruta, Tarifas
-# Asume que cada microservicio tiene su Dockerfile en su carpeta correspondiente:
-# ./gateway, ./solicitud-service, ./ruta-service, ./tarifas-service
-
 services:
+  # -------------------
+  # Keycloak (Auth)
+  # -------------------
   keycloak:
     image: quay.io/keycloak/keycloak:21.1.1
     container_name: keycloak
     environment:
-      # admin para la UI (cambiar en producción)
+      # admin UI
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      # Arranque en modo dev (para simplificar local)
+      # start in dev mode (auto-reload, import support)
       KC_HEALTH_ENABLED: "true"
-    command: start-dev
+      KC_METRICS_ENABLED: "true"
+    # import realm if file exists on host
     volumes:
       - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
-      # import automático al inicio
       - keycloak_data:/opt/keycloak/data
+    command: ["start-dev"]
     ports:
       - "8080:8080"
+    restart: unless-stopped
     networks:
       - tpi-network
-    restart: unless-stopped
-    # Esperamos que Keycloak esté listo antes de levantar servicios que dependen explícitamente
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/realms/master | grep -q 'Keycloak' || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/realms/master || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 12
 
+  # -------------------
+  # Postgres (DB)
+  # -------------------
   postgres:
     image: postgres:15
     container_name: postgres
@@ -43,15 +44,18 @@ services:
       - pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    restart: unless-stopped
     networks:
       - tpi-network
-    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d transportdb || exit 1"]
       interval: 10s
-      retries: 10
       timeout: 5s
+      retries: 10
 
+  # -------------------
+  # Gateway (API Gateway)
+  # -------------------
   gateway:
     build:
       context: ./gateway
@@ -59,25 +63,25 @@ services:
     image: transport-tpi/gateway:latest
     container_name: gateway
     environment:
-      - SPRING_PROFILES_ACTIVE=default
       - KEYCLOAK_ISSUER=http://keycloak:8080/realms/transport-tpi
+      - SPRING_PROFILES_ACTIVE=default
     ports:
       - "8080:8080"
     depends_on:
-      keycloak:
-        condition: service_healthy
-      postgres:
-        condition: service_healthy
+      - keycloak
+      - postgres
+    restart: unless-stopped
     networks:
       - tpi-network
-    restart: unless-stopped
-    # (Opcional) healthcheck - requiere que la app exponga /actuator/health
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q 'UP' || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 8
 
+  # -------------------
+  # Solicitud Service
+  # -------------------
   solicitud-service:
     build:
       context: ./solicitud-service
@@ -93,19 +97,20 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      keycloak:
-        condition: service_started
-      postgres:
-        condition: service_healthy
+      - postgres
+      - keycloak
+    restart: unless-stopped
     networks:
       - tpi-network
-    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8081/actuator/health | grep -q 'UP' || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 8
 
+  # -------------------
+  # Ruta Service
+  # -------------------
   ruta-service:
     build:
       context: ./ruta-service
@@ -117,24 +122,25 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       KEYCLOAK_ISSUER: http://keycloak:8080/realms/transport-tpi
+      GOOGLE_MAPS_API_KEY: "${GOOGLE_MAPS_API_KEY:-}"
       SPRING_PROFILES_ACTIVE: default
-      GOOGLE_MAPS_API_KEY: "${GOOGLE_MAPS_API_KEY:-}" # opcional, setear en .env si corresponde
     ports:
       - "8082:8082"
     depends_on:
-      keycloak:
-        condition: service_started
-      postgres:
-        condition: service_healthy
+      - postgres
+      - keycloak
+    restart: unless-stopped
     networks:
       - tpi-network
-    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8082/actuator/health | grep -q 'UP' || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 8
 
+  # -------------------
+  # Tarifas Service
+  # -------------------
   tarifas-service:
     build:
       context: ./tarifas-service
@@ -150,20 +156,20 @@ services:
     ports:
       - "8083:8083"
     depends_on:
-      keycloak:
-        condition: service_started
-      postgres:
-        condition: service_healthy
+      - postgres
+      - keycloak
+    restart: unless-stopped
     networks:
       - tpi-network
-    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8083/actuator/health | grep -q 'UP' || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 8
 
-# Volumes y network
+# -------------------
+# Volumes and network
+# -------------------
 volumes:
   pg_data:
   keycloak_data:
